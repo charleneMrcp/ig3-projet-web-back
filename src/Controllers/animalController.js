@@ -33,7 +33,7 @@ exports.updateAnimal = async(req,res) =>{
     const changement = await animal.update({ nom_pet : "Bricoleux" })
     res.status(200).json({message: " Animal modifié !"})
 }
-
+ 
 exports.deleteAnimal = async(req,res) =>{
     const animal = await Animal.findOne({where: {pet_id: 1}})
     const changement = await animal.destroy()

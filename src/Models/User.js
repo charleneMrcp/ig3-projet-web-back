@@ -30,3 +30,4 @@ logement:  {type: DataTypes.STRING, allowNull: false}
 
 module.exports = User
 
+ 

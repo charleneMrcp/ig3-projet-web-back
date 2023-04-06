@@ -9,7 +9,7 @@ exports.getOneUserById = async(req, res) => {
     const user = await User.findOne({where: {user_id: req.params.id}})
     res.json(user)
 }   
-
+ 
 
 exports.createUser = (req, res) =>{
     const user = User.create({

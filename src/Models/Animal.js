@@ -25,5 +25,5 @@ desc_gene: {type: DataTypes.STRING, allowNull: false}
 },
 { tableName: "Animal", freezeTableName: true, timestamps: false}
 )
-
+ 
 module.exports = Animal
