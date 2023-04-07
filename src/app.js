@@ -33,12 +33,12 @@ app.delete('/suppression/:id', userRoutes)
 
 // Animal route
 
-app.get('/animals/tous', animalRoutes)
-app.get('/animals/chats', animalRoutes)
+app.use('/animals', animalRoutes)
+/*app.get('/animals/chats', animalRoutes)
 app.post('/newAnimal', animalRoutes)
 app.put('/modifAnimal', animalRoutes)
 app.delete('/deleteAnimal', animalRoutes)
 app.delete('/deleteAnimals', animalRoutes)
-
+*/
 
 module.exports = app 

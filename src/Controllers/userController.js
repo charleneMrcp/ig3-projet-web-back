@@ -13,7 +13,7 @@ exports.getOneUserById = async(req, res) => {
 
 exports.createUser = (req, res) =>{
     const user = User.create({
-        nom: "Anonyme",
+        nom: "Charlène",
         prenom: "Anonyme",
         age: 18,
         tel:  "06 76 56 55 44",

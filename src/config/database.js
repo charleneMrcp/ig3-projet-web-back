@@ -18,7 +18,13 @@ const sequelize = new Sequelize(database, username, password, {
 })
 
 sequelize.authenticate()
+  .then(() =>{
+    console.log("Database connection established")
+  })
+  .catch(err =>{
+    console.log("error: " + err)
+  })
 
-console.log("Database connection established")
+
 
 module.exports = sequelize
