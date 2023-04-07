@@ -4,7 +4,7 @@ const helmet = require("helmet")
 
 const userRoutes = require("./Routes/UserRoutes") // chargement routes user
 const animalRoutes = require("./Routes/AnimalRoutes")// chargement routes animal
-
+const petsitterRoutes = require("./Routes/PetsitterRoutes") // chargement routes petsitter
 
 const app = express()
 
@@ -32,13 +32,9 @@ app.delete('/suppression/:id', userRoutes)
  
 
 // Animal route
-
 app.use('/animals', animalRoutes)
-/*app.get('/animals/chats', animalRoutes)
-app.post('/newAnimal', animalRoutes)
-app.put('/modifAnimal', animalRoutes)
-app.delete('/deleteAnimal', animalRoutes)
-app.delete('/deleteAnimals', animalRoutes)
-*/
+
+// Petsitter route
+app.use('/petsitters', petsitterRoutes)
 
 module.exports = app 

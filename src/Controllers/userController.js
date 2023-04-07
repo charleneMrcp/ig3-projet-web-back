@@ -1,4 +1,4 @@
-const {User} = require('../Models/models');
+const {User} = require('../Models/models')
 
 exports.getAllUsers = async (req, res) => {
     const users = await User.findAll();
@@ -10,20 +10,10 @@ exports.getOneUserById = async(req, res) => {
     res.json(user)
 }   
  
-
+// A modifier ! 
 exports.createUser = (req, res) =>{
-    const user = User.create({
-        nom: "Charlène",
-        prenom: "Anonyme",
-        age: 18,
-        tel:  "06 76 56 55 44",
-        mail:  "family3@TextDecoderStream.com",
-        mdp:  "password",
-        sexe:  "Femme",
-        addr:  "4 rue machin",
-        code_post: 34000,
-        logement:  "appartement"
-    })
+    const {nom, prenom,age,tel, mail, mdp, sexe,addr,code_post,logement} = req.body
+    User.create({nom:nom, prenom: prenom,age:age,tel: tel, mail: mail, mdp: mdp, sexe:sexe,addr: addr,code_post:code_post,logement: logement})
     res.status(200).json({
        message: " User créé !"
     })
@@ -31,7 +21,7 @@ exports.createUser = (req, res) =>{
 
 exports.updateUser = async(req,res) =>{
     const user = await User.findOne({where: {user_id: req.params.id}})
-    const changement = await user.update({ age : 23 })
+    const changement = await user.update(req.body)
     res.status(200).json(user)
 }
 

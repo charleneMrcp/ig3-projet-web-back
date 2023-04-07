@@ -19,37 +19,30 @@ exports.getCats = async (req, res) => {
     res.json(cats);
 }
 
-exports.createAnimal = async(req, res)=>{
+exports.createAnimal = async(req, res)=>{     
+    const { user_id, nom_pet, type, sexe, age, taille, poids, race, vs_dog, vs_cat, vs_humain, vs_enfants, desc_gene  } = req.body    
     
-    const data = {
-        user_id: req.params.id,
-        nom_pet: "Royou" ,
-        type: "Chien",
-        sexe: "Femêle" ,
-        age: 3,
-        taille: 20,
-        poids: 4,
-        race: "Inconnue" ,
-        vs_dog: "True" ,
-        vs_cat: "True",
-        vs_humain: "True",
-        vs_enfants: "True",
-        desc_gene:"Ce chat est génial !  Petit problème de vue"}
-    const animal = Animal.create(data)
+    const animal = Animal.create({user_id: user_id,  nom_pet: nom_pet, type: type, sexe: sexe, age: age, taille: taille, poids: poids, race: race, vs_dog: vs_dog, vs_cat: vs_cat, vs_humain: vs_humain, vs_enfants: vs_enfants, desc_gene: desc_gene })
         .then(()=>{
             res.status(200).json( {message : " Animal ajouté ! "})
         })
         .catch(err =>{
-            console.log("error: "+ err)
+           res.status(500).json({ message : "Serveur error"})
         })
     
 }
 
-// Rajouter exception si l'animal n'existe pas !
-exports.updateAnimal = async(req,res) =>{
+// Rajouter erreur serveur 
+exports.updateAnimalName = async(req,res) =>{
     const animal = await Animal.findOne({where: {pet_id: req.params.id}})
-    const changement = await animal.update({ nom_pet : "Bricoleux" })
-    res.status(200).json({message: " Animal modifié !"})
+    if (animal){
+        const changement = await animal.update({ nom_pet : req.body.nom_pet })
+        res.status(200).json({message: " Animal modifié !"})
+    }
+    else{
+        res.status(404).json({message: " Animal not found !"})
+    }
+    
 }
  
 exports.deleteAnimal = async(req,res) =>{
@@ -57,6 +50,7 @@ exports.deleteAnimal = async(req,res) =>{
     const changement = await animal.destroy()
     res.status(200).json({message: "Animal deleted"})
 }
+
 
 exports.deleteAnimals = async(req,res)=>{
     const animals = await Animal.findAll()
