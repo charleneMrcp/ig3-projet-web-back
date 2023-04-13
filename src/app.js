@@ -5,6 +5,7 @@ const helmet = require("helmet")
 const userRoutes = require("./Routes/UserRoutes") // chargement routes user
 const animalRoutes = require("./Routes/AnimalRoutes")// chargement routes animal
 const petsitterRoutes = require("./Routes/PetsitterRoutes") // chargement routes petsitter
+const reservationRoutes = require("./Routes/ReservationRoutes")// chargement routes reservation
 
 const app = express()
 
@@ -36,5 +37,8 @@ app.use('/animals', animalRoutes)
 
 // Petsitter route
 app.use('/petsitters', petsitterRoutes)
+
+// Reservation route
+app.use("/reservations", reservationRoutes)
 
 module.exports = app 
