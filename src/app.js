@@ -1,17 +1,22 @@
 const express = require("express")
 const helmet = require("helmet")
+const cors = require("cors")
 
+const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
+const { createTokens, validateToken} =  require('./middleware/auth')
 
 const userRoutes = require("./Routes/UserRoutes") // chargement routes user
 const animalRoutes = require("./Routes/AnimalRoutes")// chargement routes animal
 const petsitterRoutes = require("./Routes/PetsitterRoutes") // chargement routes petsitter
 const reservationRoutes = require("./Routes/ReservationRoutes")// chargement routes reservation
 
-const app = express()
+const app = express();
 
 
-app.use(helmet())
-
+app.use(helmet());
+app.use(cors());
+app.use(cookieParser());
 app.use(express.json())// Transforme les requêtes entrantes JSON en objet JS 
 
 
@@ -24,13 +29,9 @@ app.get("/", (req,res)=>{
 
 
 // User route => Vérifications faites !
-app.get("/:id", userRoutes)
-app.get("/users", userRoutes)
-app.post('/inscription', userRoutes)
-app.put('/modification/:id', userRoutes)
-app.delete('/suppression/:id', userRoutes)
- 
- 
+
+app.use("/user", userRoutes)
+
 
 // Animal route
 app.use('/animals', animalRoutes)

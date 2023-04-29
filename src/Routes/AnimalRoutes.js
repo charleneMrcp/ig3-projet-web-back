@@ -1,10 +1,11 @@
 const express = require('express')
 const animalsController = require('../Controllers/animalController')
+const { validateToken } = require('../middleware/auth')
 
 const router = express.Router()
 
 
-router.get('/tous', animalsController.getAllAnimals)
+router.get('/tous',validateToken, animalsController.getAllAnimals)
 
  
 router.get('/chats', animalsController.getCats)
