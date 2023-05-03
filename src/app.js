@@ -3,7 +3,7 @@ const helmet = require("helmet")
 const cors = require("cors")
 
 const bcrypt = require('bcrypt');
-const cookieParser = require('cookie-parser');
+
 const { createTokens, validateToken} =  require('./middleware/auth')
 
 const userRoutes = require("./Routes/UserRoutes") // chargement routes user
@@ -16,7 +16,7 @@ const app = express();
 
 app.use(helmet());
 app.use(cors());
-app.use(cookieParser());
+
 app.use(express.json())// Transforme les requêtes entrantes JSON en objet JS 
 
 

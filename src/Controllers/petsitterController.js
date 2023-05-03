@@ -26,16 +26,29 @@ exports.getPetsitter = async(req, res) => {
     })
 } 
 
+// On récupère les user_id des petsitters
 exports.getAllPetsitters = async(req, res) => {
-    const petsitters = await Petsitter.findAll()
-    .then((petsitters)=>{
-        res.status(200).json( petsitters)
-    })
-    .catch(err =>{
-        console.info(err)
-       res.status(500).json({ message : "Serveur error"})
-    })
-}
+    try {
+      const petsitters = await Petsitter.findAll()
+      const recupId = [];
+      for (const element of petsitters) {
+        const user = await User.findOne({where: { user_id: element.user_id}});
+        const need = {
+            sitter_id: element.sitter_id,
+            nom: user.nom,
+            prenom: user.prenom,
+            age: user.age,
+            sexe: user.sexe
+        }
+        recupId.push(need)
+      }
+      res.status(200).json(recupId)
+    } catch (err) {
+      console.info(err)
+      res.status(500).json({ message : "Serveur error"})
+    }
+  }
+  
 
 // Rajouter erreur serveur 
 exports.updatePetsitterNote = async(req,res) =>{

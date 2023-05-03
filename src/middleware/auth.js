@@ -1,22 +1,27 @@
-const { sign, verify } = require('jsonwebtoken');
+const jwt = require("jsonwebtoken")
+const{ sign, verify } = require('jsonwebtoken')
 
 const createTokens = (user)=>{
-    const accessToken = sign({ username: user.name, id: user.id}, "secretcode")
+    const accessToken = sign({ userId: user.user_id}, "secretcode",{ expiresIn: '24h'})
     return accessToken;
 }
 
 const validateToken = (req, res, next)=>{
-    const accessToken = req.cookies["access-token"]
-    if (!accessToken){return res.status(400).json({error:" User not Authenticated"})}
-
     try{
-        const validToken = verify(accessToken, "secretcode")
-        if (validToken){
-            req.authenticated = true
-            return next()
-        }
-    }catch (err){
-        return res.status(400).json({error: err});
+        
+        const accessToken = req.headers.authorization.split(' ')[1];   
+        
+        const decodedToken = jwt.verify(accessToken,"secretcode");
+        const userId = decodedToken.userId;
+
+        req.auth = {
+            userId: userId
+        };
+        console.log("auth.js: " + req.auth.userId + " sent a request")
+        
+        next();
+    } catch (err){
+        return res.status(401).json({error: err});
     }
 }
 

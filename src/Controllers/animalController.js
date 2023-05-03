@@ -3,6 +3,17 @@ const {User} = require('../Models/models');
 
 const userController = require("./userController")
 
+exports.getAnimal = async (req,res) =>{
+    const animal = await Animal.findOne({where:{pet_id: req.params.id}})
+    .then((animal)=> {
+        res.json(animal)
+    })
+    .catch(err =>{
+        res.status(500).json({ message : "Serveur error"})
+     })
+}
+
+
 exports.getAllAnimals = async (req, res) => {
     const animal = await Animal.findAll()
     res.json(animal);
@@ -10,8 +21,8 @@ exports.getAllAnimals = async (req, res) => {
 
 
 exports.getAllAnimalsOfaUser = async (req, res) => {
-    const animal = await Animal.findAll({where: {user_id: req.params.id}})
-    res.json(animal);
+    const animal = await Animal.findAll({where: {user_id: req.auth.userId}})
+    .then(animal =>{res.json(animal);})
 }
 
 exports.getCats = async (req, res) => {
@@ -20,9 +31,9 @@ exports.getCats = async (req, res) => {
 }
 
 exports.createAnimal = async(req, res)=>{     
-    const { user_id, nom_pet, type, sexe, age, taille, poids, race, vs_dog, vs_cat, vs_humain, vs_enfants, desc_gene  } = req.body    
+    const { nom_pet, type, sexe, age, taille, poids, race, vs_dog, vs_cat, vs_humain, vs_enfants, desc_gene  } = req.body    
     
-    const animal = Animal.create({user_id: user_id,  nom_pet: nom_pet, type: type, sexe: sexe, age: age, taille: taille, poids: poids, race: race, vs_dog: vs_dog, vs_cat: vs_cat, vs_humain: vs_humain, vs_enfants: vs_enfants, desc_gene: desc_gene })
+    const animal = Animal.create({user_id: req.auth.userId,  nom_pet: nom_pet, type: type, sexe: sexe, age: age, taille: taille, poids: poids, race: race, vs_dog: vs_dog, vs_cat: vs_cat, vs_humain: vs_humain, vs_enfants: vs_enfants, desc_gene: desc_gene })
         .then(()=>{
             res.status(200).json( {message : " Animal ajouté ! "})
         })
@@ -36,7 +47,8 @@ exports.createAnimal = async(req, res)=>{
 exports.updateAnimalName = async(req,res) =>{
     const animal = await Animal.findOne({where: {pet_id: req.params.id}})
     if (animal){
-        const changement = await animal.update({ nom_pet : req.body.nom_pet })
+        const { nom_pet, type, sexe, age, taille, poids, race, vs_dog, vs_cat, vs_humain, vs_enfants, desc_gene} =req.body
+        const changement = await animal.update({ nom_pet: nom_pet, type: type, sexe: sexe, age: age, taille: taille, poids: poids, race: race, vs_dog: vs_dog, vs_cat: vs_cat, vs_humain: vs_humain, vs_enfants: vs_enfants, desc_gene: desc_gene })
         res.status(200).json({message: " Animal modifié !"})
     }
     else{
