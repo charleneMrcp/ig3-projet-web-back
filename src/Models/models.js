@@ -21,6 +21,9 @@ Reservation.belongsTo(Animal,{foreignKey: 'pet_id'});
 Activite.hasMany(Reservation,{foreignKey: {name:'libelle_acti', allowNull: false}})
 Reservation.belongsTo(Activite,{foreignKey: 'libelle_acti'});
 
+User.hasMany(Reservation, {foreignKey: {name:'user_id', allowNull: false}, onDelete: 'CASCADE'})
+Reservation.belongsTo(User,{foreignKey: 'user_id'});
+
 
 
 

@@ -11,8 +11,10 @@ res_id: {
 },
 validation: {type: DataTypes.BOOLEAN, allowNull: true},
 
-date_debut: {type: DataTypes.DATE, allowNull: false},
-date_fin: {type: DataTypes.DATE, allowNull: false},
+date_debut: {type: DataTypes.DATEONLY, allowNull: false},
+date_fin: {type: DataTypes.DATEONLY, allowNull: false},
+h_debut:{type: DataTypes.TIME, allowNull: false},
+h_fin:{type: DataTypes.TIME, allowNull: false},
 quick_desc:  {type: DataTypes.STRING, allowNull: true},
 prix_final:  {type: DataTypes.INTEGER, allowNull: false, defaultValue: 0}
 

@@ -6,21 +6,22 @@ const { Reservation } = require("../Models/models")
 
 // To do : Ajouter la verif que le sitter existe
 exports.createReservation = async(req,res)=>{
-    const {sitter_id, pet_id, libelle_acti, date_debut, date_fin, quick_desc} = req.body    
-    const reserv = Reservation.create({sitter_id: sitter_id,pet_id: pet_id, libelle_acti: libelle_acti, date_debut: date_debut, date_fin: date_fin, quick_desc: quick_desc})
+    
+    const {sitter_id, pet_id, libelle_acti, date_debut,h_debut,h_fin, date_fin, quick_desc} = req.body    
+    const reserv = Reservation.create({user_id:req.auth.userId,sitter_id: sitter_id,pet_id: pet_id, libelle_acti: libelle_acti, date_debut: date_debut, date_fin: date_fin,h_debut:h_debut,h_fin:h_fin, quick_desc: quick_desc})
     .then(()=>{
         res.status(200).json( {message : " Reservation en attente de validation du Petsitter ! "})
     })
     .catch(err =>{
         console.info(err)
-       res.status(500).json({ message : "Serveur error | petsitter not found"})
+       res.status(500).json({ message : err})
     })
 }
 
 // On peut faire toutes les reservation validés, non validés , en attente 
 
 exports.getReservations = async(req, res) => {
-    const reserv = await Reservation.findAll({where: {sitter_id: req.params.id}})
+    const reserv = await Reservation.findOne({where: {res_id: req.params.id}})
     .then((reserv)=>{
         res.status(200).json( reserv)
     })
@@ -31,7 +32,7 @@ exports.getReservations = async(req, res) => {
 } 
 
 exports.getAllReservations = async(req, res) => {
-    const reserv = await Reservation.findAll()
+    const reserv = await Reservation.findAll({where:{user_id: req.auth.userId}})
     .then((reserv)=>{
         res.status(200).json( reserv)
     })
