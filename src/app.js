@@ -44,4 +44,6 @@ app.use("/reservations", reservationRoutes)
 
 // Activite route
 app.use("/activite", activiteRoutes)
+
+
 module.exports = app 

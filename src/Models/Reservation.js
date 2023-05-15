@@ -9,7 +9,7 @@ res_id: {
     primaryKey: true,
     allowNull: false
 },
-validation: {type: DataTypes.BOOLEAN, allowNull: true},
+validation: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false},
 
 date_debut: {type: DataTypes.DATEONLY, allowNull: false},
 date_fin: {type: DataTypes.DATEONLY, allowNull: false},

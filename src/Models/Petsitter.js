@@ -9,11 +9,10 @@ sitter_id: {
     primaryKey: true,
     allowNull: false
 },
-vehicule: {type: DataTypes.BOOLEAN, allowNull: false},
+vehicule: {type: DataTypes.BOOLEAN, allowNull: true},
 surface: {type: DataTypes.INTEGER, allowNull: false},
-note: {type: DataTypes.INTEGER, allowNull: true},
 exp_desc:  {type: DataTypes.STRING, allowNull: false},
-loge_desc:  {type: DataTypes.STRING, allowNull: false},
+loge_desc:  {type: DataTypes.STRING, allowNull: true},
 motiv_desc:  {type: DataTypes.STRING, allowNull: false},
 exterieur:  {type: DataTypes.BOOLEAN, allowNull: false}
 

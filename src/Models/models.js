@@ -8,10 +8,10 @@ const Activite = require("./Activite")
 User.hasMany(Animal, { foreignKey: { name: 'user_id', allowNull: false }, onDelete: 'CASCADE' })
 Animal.belongsTo(User, { foreignKey: 'user_id' })
 
-User.hasOne(Petsitter, { foreignKey: { name: 'user_id', allowNull: false }, onDelete: 'CASCADE' })
+User.hasOne(Petsitter, { foreignKey: { name: 'user_id', allowNull: false, unique: true }, onDelete: 'CASCADE' })
 Petsitter.belongsTo(User, { foreignKey: 'user_id' })
 
-// To do : rajouter une sécurité à delete user pour qu'il delete aussi sitter si il y a
+
 Petsitter.hasMany(Reservation, { foreignKey: { name: 'sitter_id', allowNull: false }, onDelete: 'CASCADE' })
 Reservation.belongsTo(Petsitter, { foreignKey: 'sitter_id' });
 

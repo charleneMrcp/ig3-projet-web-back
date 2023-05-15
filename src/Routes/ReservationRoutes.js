@@ -6,11 +6,11 @@ const router = express.Router()
 
 router.post('/newReservation',validateToken, reservationsController.createReservation)
 router.get('/getReservation/:id',validateToken, reservationsController.getReservations)
-
+router.get('/allreservations2',validateToken, reservationsController.getAllReservations2)
 router.get('/allreservations',validateToken, reservationsController.getAllReservations)
-router.put('/validation/:id', reservationsController.updateReservationValidation)
-router.delete('/deleteReservation/:id', reservationsController.deleteReservation)
-router.delete('/deleteReservations', reservationsController.deleteReservations)
+router.put('/validation/:id', validateToken, reservationsController.updateReservationValidation)
+router.delete('/deleteReservation/:id', validateToken, reservationsController.deleteReservation)
+
 
 
 
