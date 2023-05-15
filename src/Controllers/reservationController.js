@@ -23,12 +23,30 @@ exports.createReservation = async(req,res)=>{
 
 exports.getReservations = async(req, res) => {
     const reserv = await Reservation.findOne({where: {res_id: req.params.id}})
-    .then((reserv)=>{
-        res.status(200).json(reserv)
-    })
-    .catch(err =>{
-       res.status(404).json({ message : "Reservation not found"})
-    })
+    const sitter = await Petsitter.findOne({where: {sitter_id: reserv.sitter_id}})
+    const user = await User.findOne({where: {user_id:sitter.user_id}});
+    const animal = await Animal.findOne({where:{pet_id: reserv.pet_id }})
+    
+    const need = {
+        sitter_id: reserv.sitter_id,
+        pet_id: reserv.pet_id,
+        nom_pet: animal.nom_pet,
+        nom: user.nom,
+        prenom: user.prenom,
+        res_id:reserv.res_id,
+        validation: reserv.validation,
+        date_debut:reserv.date_debut,
+        date_fin: reserv.date_fin,
+        h_debut:reserv.h_debut,
+        h_fin:reserv.h_fin,
+        quick_desc:  reserv.quick_desc,
+        prix_final:reserv.prix_final,
+    }
+    
+    
+    res.status(200).json(need)
+    
+    
 } 
 // Recupère les reservayions de l'utilisateur
 exports.getAllReservations = async(req, res) => {
@@ -67,13 +85,34 @@ exports.getAllReservations2 = async(req, res) => {
         return res.status(404).json({ message : "Petsitter introuvable"})
       }
       const reserv = await Reservation.findAll({where:{sitter_id: sitter.sitter_id}})
-      res.status(200).json( reserv)
-    } catch (err) {
-      console.info(err)
-      res.status(500).json({ message : "Serveur error"})
+      const renvoi = [];
+      for (const element of reserv){
+        const user = await User.findOne({where: {user_id:req.auth.userId}});
+        const animal = await Animal.findOne({where:{pet_id: element.pet_id }})
+        const need = {
+            sitter_id: element.sitter_id,
+            pet_id: element.pet_id,
+            nom_pet: animal.nom_pet,
+            nom: user.nom,
+            prenom: user.prenom,
+            res_id: element.res_id,
+            validation: element.validation,
+            date_debut:element.date_debut,
+            date_fin: element.date_fin,
+            h_debut:element.h_debut,
+            h_fin:element.h_fin,
+            quick_desc:  element.quick_desc,
+            prix_final:element.prix_final,
+        }
+        renvoi.push(need);
+    
     }
+    res.status(200).json( renvoi)
   }
-  
+  catch (err){
+    res.status(500).json({ message : "Serveur error"})
+  }
+}  
 
 
 
