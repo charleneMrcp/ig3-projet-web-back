@@ -50,7 +50,8 @@ exports.getAllPetsitters = async(req, res) => {
             nom: user.nom,
             prenom: user.prenom,
             age: user.age,
-            sexe: user.sexe
+            sexe: user.sexe,
+            code_post: user.code_post
         }
         recupId.push(need)
       }
