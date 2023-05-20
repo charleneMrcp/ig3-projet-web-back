@@ -35,11 +35,11 @@ sequelize.sync({alter: true}).then(()=>{
     console.log("All tables synced")
 })
 
-
+/*
 const activites = [{ libelle_acti: " Balade " }, { libelle_acti: " Garde domicile Petsitter " }, { libelle_acti: "Garde domicile client" }]
 activites.forEach(element => {
     Activite.create(element)
 })
-
+*/
 
 module.exports = { User, Animal, Petsitter, Reservation, Activite }
