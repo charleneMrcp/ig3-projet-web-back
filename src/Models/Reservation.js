@@ -15,7 +15,7 @@ date_debut: {type: DataTypes.DATEONLY, allowNull: false},
 date_fin: {type: DataTypes.DATEONLY, allowNull: false},
 h_debut:{type: DataTypes.TIME, allowNull: false},
 h_fin:{type: DataTypes.TIME, allowNull: false},
-quick_desc:  {type: DataTypes.STRING, allowNull: true},
+quick_desc:  {type: DataTypes.TEXT, allowNull: true},
 prix_final:  {type: DataTypes.INTEGER, allowNull: false, defaultValue: 0}
 
 },

@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken")
 const{ sign, verify } = require('jsonwebtoken')
 
 const createTokens = (user)=>{
-    const accessToken = sign({ userId: user.user_id}, "secretcode",{ expiresIn: '24h'})
+    const accessToken = sign({ userId: user.user_id},process.env.JWT_SECRET || "secretcode" ,{ expiresIn: '24h'})
     return accessToken;
 }
 
@@ -11,7 +11,7 @@ const validateToken = (req, res, next)=>{
         
         const accessToken = req.headers.authorization.split(' ')[1];   
         
-        const decodedToken = jwt.verify(accessToken,"secretcode");
+        const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET || "secretcode");
         const userId = decodedToken.userId;
 
         req.auth = {

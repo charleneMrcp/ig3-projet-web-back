@@ -21,7 +21,7 @@ vs_dog: {type: DataTypes.BOOLEAN, allowNull: false},
 vs_cat: {type: DataTypes.BOOLEAN, allowNull: false},
 vs_humain: {type: DataTypes.BOOLEAN, allowNull: false},
 vs_enfants: {type: DataTypes.BOOLEAN, allowNull: false},
-desc_gene: {type: DataTypes.STRING, allowNull: false}
+desc_gene: {type: DataTypes.TEXT, allowNull: false}
 },
 { tableName: "Animal", freezeTableName: true, timestamps: false}
 )
