@@ -1,3 +1,5 @@
+const sequelize= require("../config/database")
+
 const User = require("./User")
 const Animal = require("./Animal")
 const Petsitter = require("./Petsitter")
@@ -29,23 +31,9 @@ Reservation.belongsTo(User,{foreignKey: 'user_id'});
 
 
 
-(async () => {
-    await User.sync({ alter: true }).then(() => {
-        console.log("Table User créée")
-    })
-    await Animal.sync({ alter: true }).then(() => {
-        console.log("Table Animal créée")
-    })
-    await Petsitter.sync({ alter: true }).then(() => {
-        console.log("Table Petsitter créée")
-    })
-    await Reservation.sync({ alter: true }).then(() => {
-        console.log("Table Reservation créée")
-    })
-    await Activite.sync({ alter: true }).then(() => {
-        console.log("Table Activite créée")
-    })
-})()
+sequelize.sync({alter: true}).then(()=>{
+    console.log("All tables synced")
+})
 
 /*
 const activites = [{ libelle_acti: " Balade " }, { libelle_acti: " Garde domicile Petsitter " }, { libelle_acti: "Garde domicile client" }]
