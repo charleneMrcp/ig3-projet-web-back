@@ -1,7 +1,13 @@
 const http = require("http")
-
+const sequelize = require("./config/database")
 const app = require("./app")
-
+sequelize.authenticate()
+  .then(() =>{
+    console.log("Database connection established")
+  })
+  .catch(err =>{
+    console.log("error: " + err)
+  })
 
 const port = process.env.PORT || 3000
 

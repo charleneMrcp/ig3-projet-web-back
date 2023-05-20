@@ -16,13 +16,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL || "postgres://postgres
   logging: false,
 })
 
-sequelize.authenticate()
-  .then(() =>{
-    console.log("Database connection established")
-  })
-  .catch(err =>{
-    console.log("error: " + err)
-  })
+
 
 
 
