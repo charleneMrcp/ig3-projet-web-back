@@ -1,7 +1,4 @@
 const http = require("http")
-const sequelize = require("./config/database")
-const app = require("./app")
-
 if (!process.env.NODE_ENV || process.env.NODE_ENV !== "production") {
   const dotenv = require("dotenv")
   const result = dotenv.config()
@@ -10,6 +7,12 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV !== "production") {
     throw result.error
   }
 }
+
+
+const sequelize = require("./config/database")
+const app = require("./app")
+
+
 
 
 
