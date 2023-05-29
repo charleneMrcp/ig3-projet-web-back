@@ -35,7 +35,7 @@ exports.getReservations = async(req, res) => {
         
         const user = await User.findOne({ where: { user_id: sitter.user_id } });
         if (!user) {
-        return res.status(200).json({});
+        return res.status(401).json({});
         }
         
         const animal = await Animal.findOne({ where: { pet_id: reserv.pet_id } });
@@ -45,10 +45,26 @@ exports.getReservations = async(req, res) => {
         
         const need = {
         sitter_id: reserv.sitter_id,
+
         pet_id: reserv.pet_id,
         nom_pet: animal.nom_pet,
+        vs_dog:animal.vs_dog,
+        vs_cat:animal.vs_cat,
+        vs_enfants:animal.vs_enfants,
+        vs_humain:animal.vs_humain,
+        type:animal.type ,
+        sexe: animal.sexe ,
+        age: animal.age,
+        taille:animal.taille,
+        poids:animal.poids,
+        race: animal.race,    
+        desc_gene: animal.desc_gene,
+
         nom: user.nom,
         prenom: user.prenom,
+        tel: user.tel,
+
+
         res_id: reserv.res_id,
         validation: reserv.validation,
         date_debut: reserv.date_debut,

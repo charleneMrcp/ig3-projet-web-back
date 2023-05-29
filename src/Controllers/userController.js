@@ -92,7 +92,7 @@ exports.login = async(req, res)=>{
         bcrypt.compare(req.body.mdp, user.mdp)
         .then((match)=>{
             if (!match){
-                res.status(400).json({error: "Wrong User/mdp combination"})
+                res.status(401).json({error: "Wrong User/mdp combination"})
             } else{
                 const accessToken = createTokens(user)
                 res.status(201).json({
