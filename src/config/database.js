@@ -12,7 +12,7 @@ const port = process.env.DB_PORT || 5432
 
 
  
-const sequelize = new Sequelize(process.env.DATABASE_URL || "postgres://postgres:123@localhost:5432/postgres", {
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
   logging: false,
 })
 
