@@ -12,7 +12,7 @@ const validateToken = (req, res, next)=>{
         const accessToken = req.headers.authorization.split(' ')[1];   
         
         const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET);
-        const userId = decodedToken.userId;
+        const userId = decodedToken.userId; 
 
         req.auth = {
             userId: userId
